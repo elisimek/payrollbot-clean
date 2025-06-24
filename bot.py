@@ -56,3 +56,17 @@ async def biweekly_reminder():
         print(f"🗓️ Next reminder scheduled for: {next_scheduled_time}")
 
 bot.run(TOKEN)
+
+
+import os
+import socket
+
+if os.environ.get("RENDER") == "true":
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("0.0.0.0", 10000))
+    s.listen(1)
+    print("Dummy port open at 10000")
+    while True:
+        conn, addr = s.accept()
+        conn.send(b"This is a Discord bot, not a web service.\n")
+        conn.close()
